@@ -1,0 +1,43 @@
+{
+  "expo": {
+    "name": "Santa Rosa",
+    "slug": "appsantarosa",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1B3A7A"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.santarosa.vehiculos",
+      "buildNumber": "1",
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app uses the camera for vehicle photography.",
+        "NSPhotoLibraryUsageDescription": "This app accesses your photo library for vehicle images."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#1B3A7A"
+      },
+      "package": "com.santarosa.vehiculos",
+      "versionCode": 1,
+      "permissions": []
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [],
+    "extra": {
+      "eas": {
+        "projectId": "santarosa-vehiculos"
+      }
+    },
+    "owner": "santarosa"
+  }
+}
