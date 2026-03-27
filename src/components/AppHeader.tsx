@@ -13,21 +13,23 @@ import Colors from '../theme/colors';
 
 interface AppHeaderProps {
   onMenuPress: () => void;
+  showBack?: boolean;
+  onBackPress?: () => void;
 }
 
-export const AppHeader: React.FC<AppHeaderProps> = ({ onMenuPress }) => {
+export const AppHeader: React.FC<AppHeaderProps> = ({ onMenuPress, showBack, onBackPress }) => {
   const insets = useSafeAreaInsets();
 
   return (
     <View style={[styles.header, { paddingTop: insets.top + 8 }]}>
       <TouchableOpacity
         style={styles.menuButton}
-        onPress={onMenuPress}
+        onPress={showBack ? onBackPress : onMenuPress}
         hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-        accessibilityLabel="Abrir menu"
+        accessibilityLabel={showBack ? 'Volver' : 'Abrir menu'}
         accessibilityRole="button"
       >
-        <Text style={styles.hamburgerIcon}>≡</Text>
+        <Text style={styles.hamburgerIcon}>{showBack ? '‹' : '≡'}</Text>
       </TouchableOpacity>
 
       <View style={styles.centerContent}>

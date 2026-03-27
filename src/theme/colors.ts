@@ -40,6 +40,10 @@ export const Colors = {
   redLabel: '#E53935',
   info: '#3182CE',
 
+  // Borders
+  borderLight: '#F0F0F0',
+  borderMedium: '#D0D0D0',
+
   // Separator
   separator: '#E2E8F0',
 

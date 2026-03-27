@@ -7,7 +7,6 @@ import {
   StyleSheet,
   Dimensions,
   FlatList,
-  Image,
   Modal,
   Alert,
 } from 'react-native';
@@ -28,14 +27,7 @@ type HomeStackParamList = {
 
 type VehicleDetailRouteProp = RouteProp<HomeStackParamList, 'VehicleDetail'>;
 
-const PLAN_OPTIONS = ['Plan 36 cuotas', 'Plan 48 cuotas', 'Plan 60 cuotas'];
-
-// Carousel images - using same placeholder with different tints conceptually
-const getCarouselImages = (vehicleImage: string) => [
-  vehicleImage,
-  vehicleImage,
-  vehicleImage,
-];
+const CAROUSEL_SLIDES = ['Vista Lateral', 'Vista Frontal', 'Vista Interior'];
 
 export const VehicleDetailScreen: React.FC = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -56,11 +48,6 @@ export const VehicleDetailScreen: React.FC = () => {
   const vehicle = useMemo(
     () => brand?.vehicles.find((v) => v.id === route.params.vehicleId),
     [brand, route.params.vehicleId]
-  );
-
-  const carouselImages = useMemo(
-    () => (vehicle ? getCarouselImages(vehicle.image) : []),
-    [vehicle]
   );
 
   const bono = 0;
@@ -99,13 +86,12 @@ export const VehicleDetailScreen: React.FC = () => {
         <View style={styles.carouselContainer}>
           <FlatList
             ref={carouselRef}
-            data={carouselImages}
+            data={CAROUSEL_SLIDES}
             renderItem={({ item }) => (
-              <Image
-                source={{ uri: item }}
-                style={styles.carouselImage}
-                resizeMode="contain"
-              />
+              <View style={styles.carouselSlide}>
+                <Text style={styles.carouselEmoji}>🚙</Text>
+                <Text style={styles.carouselSlideLabel}>{item}</Text>
+              </View>
             )}
             keyExtractor={(_, index) => String(index)}
             horizontal
@@ -121,7 +107,7 @@ export const VehicleDetailScreen: React.FC = () => {
 
           {/* Dot indicators */}
           <View style={styles.dotsContainer}>
-            {carouselImages.map((_, index) => (
+            {CAROUSEL_SLIDES.map((_, index) => (
               <TouchableOpacity
                 key={index}
                 style={[styles.dot, index === activeCarouselIndex && styles.dotActive]}
@@ -311,10 +297,22 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     paddingBottom: 12,
   },
-  carouselImage: {
+  carouselSlide: {
     width: SCREEN_WIDTH,
     height: 220,
     backgroundColor: '#F8F8F8',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  carouselEmoji: {
+    fontSize: 72,
+    marginBottom: 8,
+  },
+  carouselSlideLabel: {
+    fontSize: 13,
+    color: Colors.textMuted,
+    fontWeight: '500',
+    letterSpacing: 0.5,
   },
   dotsContainer: {
     flexDirection: 'row',

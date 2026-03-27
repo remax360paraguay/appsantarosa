@@ -15,8 +15,9 @@ import Colors from '../theme/colors';
 
 type PostventaStackParamList = {
   PostventaMain: undefined;
-  AgendamientoService: undefined;
+  Agendamiento: undefined;
   Talleres: undefined;
+  Tarifario: undefined;
 };
 
 type PostventaNavProp = NativeStackNavigationProp<PostventaStackParamList>;
@@ -70,7 +71,7 @@ export const PostventaScreen: React.FC = () => {
             icon="🔧"
             title="Agendamiento Service"
             subtitle="Solicite un turno para el servicio técnico de su vehículo"
-            onPress={() => navigation.navigate('AgendamientoService')}
+            onPress={() => navigation.navigate('Agendamiento')}
           />
           <PostventaOption
             icon="📍"
