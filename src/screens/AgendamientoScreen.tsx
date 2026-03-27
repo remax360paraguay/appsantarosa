@@ -13,7 +13,6 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
-import { DrawerContext } from '../navigation/AppNavigator';
 import { AppHeader } from '../components/AppHeader';
 import { DrawerMenu } from '../components/DrawerMenu';
 import Colors from '../theme/colors';

@@ -9,6 +9,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Ionicons } from '@expo/vector-icons';
 import { AppHeader } from '../components/AppHeader';
 import { DrawerMenu } from '../components/DrawerMenu';
 import Colors from '../theme/colors';
@@ -22,29 +23,29 @@ type PostventaStackParamList = {
 
 type PostventaNavProp = NativeStackNavigationProp<PostventaStackParamList>;
 
-interface PostventaOptionProps {
-  icon: string;
+interface PostventaMenuItemProps {
+  iconName: keyof typeof Ionicons.glyphMap;
   title: string;
   subtitle: string;
   onPress: () => void;
 }
 
-const PostventaOption: React.FC<PostventaOptionProps> = ({ icon, title, subtitle, onPress }) => (
+const PostventaMenuItem: React.FC<PostventaMenuItemProps> = ({ iconName, title, subtitle, onPress }) => (
   <TouchableOpacity
-    style={styles.optionCard}
+    style={styles.menuCard}
     onPress={onPress}
     activeOpacity={0.8}
     accessibilityLabel={title}
     accessibilityRole="button"
   >
-    <View style={styles.optionIconContainer}>
-      <Text style={styles.optionIcon}>{icon}</Text>
+    <View style={styles.menuIconSquare}>
+      <Ionicons name={iconName} size={24} color={Colors.white} />
     </View>
-    <View style={styles.optionTextContainer}>
-      <Text style={styles.optionTitle}>{title}</Text>
-      <Text style={styles.optionSubtitle}>{subtitle}</Text>
+    <View style={styles.menuTextContainer}>
+      <Text style={styles.menuTitle}>{title}</Text>
+      <Text style={styles.menuSubtitle}>{subtitle}</Text>
     </View>
-    <Text style={styles.optionArrow}>›</Text>
+    <Ionicons name="chevron-forward" size={18} color={Colors.textMuted} />
   </TouchableOpacity>
 );
 
@@ -61,54 +62,28 @@ export const PostventaScreen: React.FC = () => {
         contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + 24 }]}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={styles.screenTitle}>POSTVENTA</Text>
-        <Text style={styles.screenSubtitle}>
-          Servicios de atención al cliente y asistencia técnica
-        </Text>
+        <Text style={styles.screenTitle}>Postventa</Text>
+        <Text style={styles.screenSubtitle}>Gestione sus servicios y consultas</Text>
 
-        <View style={styles.optionsContainer}>
-          <PostventaOption
-            icon="🔧"
-            title="Agendamiento Service"
-            subtitle="Solicite un turno para el servicio técnico de su vehículo"
+        <View style={styles.menuList}>
+          <PostventaMenuItem
+            iconName="calendar-outline"
+            title="Agendamiento"
+            subtitle="Reserve su turno para el servicio tecnico."
             onPress={() => navigation.navigate('Agendamiento')}
           />
-          <PostventaOption
-            icon="📍"
-            title="Talleres"
-            subtitle="Encuentre talleres oficiales y autorizados cerca de usted"
+          <PostventaMenuItem
+            iconName="car-outline"
+            title="Talleres Oficiales"
+            subtitle="Encuentre la sucursal mas cercana."
             onPress={() => navigation.navigate('Talleres')}
           />
-        </View>
-
-        {/* Info cards */}
-        <View style={styles.infoSection}>
-          <Text style={styles.infoSectionTitle}>Información de Contacto</Text>
-
-          <View style={styles.infoCard}>
-            <Text style={styles.infoIcon}>📞</Text>
-            <View>
-              <Text style={styles.infoLabel}>Teléfono Central</Text>
-              <Text style={styles.infoValue}>021-000-0000</Text>
-            </View>
-          </View>
-
-          <View style={styles.infoCard}>
-            <Text style={styles.infoIcon}>✉️</Text>
-            <View>
-              <Text style={styles.infoLabel}>Email</Text>
-              <Text style={styles.infoValue}>servicio@santarosa.com.py</Text>
-            </View>
-          </View>
-
-          <View style={styles.infoCard}>
-            <Text style={styles.infoIcon}>🕐</Text>
-            <View>
-              <Text style={styles.infoLabel}>Horario de Atención</Text>
-              <Text style={styles.infoValue}>Lunes a Viernes: 8:00 - 17:30</Text>
-              <Text style={styles.infoValue}>Sábados: 8:00 - 12:00</Text>
-            </View>
-          </View>
+          <PostventaMenuItem
+            iconName="pricetag-outline"
+            title="Tarifario"
+            subtitle="Consulte los costos de mantenimiento."
+            onPress={() => navigation.navigate('Tarifario')}
+          />
         </View>
       </ScrollView>
 
@@ -130,26 +105,23 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   screenTitle: {
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: '800',
     color: Colors.textPrimary,
-    letterSpacing: 1,
     marginBottom: 6,
   },
   screenSubtitle: {
-    fontSize: 13,
+    fontSize: 14,
     color: Colors.textMuted,
     marginBottom: 24,
-    lineHeight: 18,
   },
-  optionsContainer: {
-    gap: 12,
-    marginBottom: 28,
+  menuList: {
+    gap: 14,
   },
-  optionCard: {
+  menuCard: {
     backgroundColor: Colors.white,
     borderRadius: 14,
-    padding: 18,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
     shadowColor: Colors.shadowColor,
@@ -157,79 +129,30 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.07,
     shadowRadius: 6,
     elevation: 3,
+    gap: 14,
   },
-  optionIconContainer: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: '#EEF3FB',
+  menuIconSquare: {
+    width: 48,
+    height: 48,
+    borderRadius: 12,
+    backgroundColor: Colors.primaryBlue,
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 14,
+    flexShrink: 0,
   },
-  optionIcon: {
-    fontSize: 24,
-  },
-  optionTextContainer: {
+  menuTextContainer: {
     flex: 1,
   },
-  optionTitle: {
+  menuTitle: {
     fontSize: 16,
     fontWeight: '700',
     color: Colors.textPrimary,
     marginBottom: 4,
   },
-  optionSubtitle: {
+  menuSubtitle: {
     fontSize: 12,
     color: Colors.textMuted,
     lineHeight: 17,
-  },
-  optionArrow: {
-    fontSize: 28,
-    color: Colors.textMuted,
-    fontWeight: '300',
-    marginLeft: 8,
-  },
-  infoSection: {
-    gap: 10,
-  },
-  infoSectionTitle: {
-    fontSize: 14,
-    fontWeight: '700',
-    color: Colors.primaryBlue,
-    letterSpacing: 0.5,
-    marginBottom: 4,
-    textTransform: 'uppercase',
-  },
-  infoCard: {
-    backgroundColor: Colors.white,
-    borderRadius: 12,
-    padding: 14,
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    shadowColor: Colors.shadowColor,
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 2,
-    gap: 12,
-  },
-  infoIcon: {
-    fontSize: 20,
-    marginTop: 2,
-  },
-  infoLabel: {
-    fontSize: 11,
-    color: Colors.textMuted,
-    fontWeight: '500',
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
-    marginBottom: 3,
-  },
-  infoValue: {
-    fontSize: 13,
-    color: Colors.textPrimary,
-    fontWeight: '500',
   },
 });
 

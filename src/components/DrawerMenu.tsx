@@ -25,12 +25,9 @@ interface DrawerMenuProps {
 
 const menuItems = [
   { label: 'Inicio', screen: 'Home', icon: '⊞' },
-  { label: 'Catálogo de Marcas', screen: 'Home', icon: '◈' },
-  { label: 'Postventa', screen: 'Postventa', icon: '⚙' },
-  { label: 'Agendamiento Service', screen: 'AgendamientoService', icon: '📅' },
-  { label: 'Talleres', screen: 'Talleres', icon: '📍' },
-  { label: 'Notificaciones', screen: 'Notifications', icon: '🔔' },
-  { label: 'Contacto', screen: 'Home', icon: '✉' },
+  { label: 'Tipo de Cambio', screen: 'Home', icon: '💱' },
+  { label: 'Reclamos', screen: 'Home', icon: '📢' },
+  { label: 'Urgencias', screen: 'Urgencias', icon: '⚠️' },
 ];
 
 export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose, onNavigate }) => {

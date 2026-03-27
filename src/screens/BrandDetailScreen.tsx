@@ -125,7 +125,7 @@ export const BrandDetailScreen: React.FC = () => {
 
   return (
     <View style={styles.screen}>
-      <AppHeader onMenuPress={() => setDrawerOpen(true)} />
+      <AppHeader onMenuPress={() => setDrawerOpen(true)} showBack onBackPress={() => navigation.goBack()} />
 
       {/* Search bar */}
       <View style={styles.searchContainer}>

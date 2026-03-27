@@ -11,7 +11,7 @@ import {
   Alert,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useRoute, RouteProp } from '@react-navigation/native';
+import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 import { AppHeader } from '../components/AppHeader';
 import { DrawerMenu } from '../components/DrawerMenu';
 import { brands } from '../data/brands';
@@ -38,6 +38,7 @@ export const VehicleDetailScreen: React.FC = () => {
   const [planDropdownOpen, setPlanDropdownOpen] = useState(false);
   const insets = useSafeAreaInsets();
   const route = useRoute<VehicleDetailRouteProp>();
+  const navigation = useNavigation();
   const carouselRef = useRef<FlatList>(null);
 
   const brand = useMemo(
@@ -76,7 +77,11 @@ export const VehicleDetailScreen: React.FC = () => {
 
   return (
     <View style={styles.screen}>
-      <AppHeader onMenuPress={() => setDrawerOpen(true)} />
+      <AppHeader
+        onMenuPress={() => setDrawerOpen(true)}
+        showBack
+        onBackPress={() => navigation.goBack()}
+      />
 
       <ScrollView
         showsVerticalScrollIndicator={false}
